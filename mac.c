@@ -57,6 +57,15 @@ void eval(int instr)
 	      		stack[sp] = program[++ip];
 			break;		
 		}
+		case POP: {
+			/*store the value at the stack in 
+		 	* val_popped THEN decrement the stack ptr*/
+			int val_popped = stack[sp--];
+
+			/*Print it out*/
+			printf("popped %d\n", val_popped);
+			break;
+		}
 	}
 }
 
