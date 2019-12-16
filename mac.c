@@ -47,6 +47,8 @@ int fetch()
  */
 void eval(int instr)
 {
+	int a, b, result;
+
 	switch (instr) {
 		case HLT: {
 			running = false;
@@ -59,11 +61,27 @@ void eval(int instr)
 		}
 		case POP: {
 			/*store the value at the stack in 
-		 	* val_popped THEN decrement the stack ptr*/
+		 	* val_popped THEN decrement the stack ptr
+			* is like says stack[sp], sp--*/
 			int val_popped = stack[sp--];
 
 			/*Print it out*/
 			printf("popped %d\n", val_popped);
+			break;
+		}
+		case ADD: {
+		       /*First we POP the stack and store it as 'a'*/
+			a = stack[sp--];
+		       /*then we POP the top os the stack and store
+			* it as 'b'*/
+			b = stack[sp--];
+
+			/*add the result and push it to the stack*/
+			result = a + b;
+			sp++;
+			stack[sp] = result;
+
+			/*all done*/
 			break;
 		}
 	}
@@ -71,8 +89,6 @@ void eval(int instr)
 
 int main()
 {
-	int x;
-
 	/*the program will keeps alive till the running being true*/
 	while(running)
 	{
